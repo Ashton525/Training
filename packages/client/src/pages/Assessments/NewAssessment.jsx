@@ -4,137 +4,132 @@ import { Button, Form } from 'react-bootstrap';
 import { AssessmentService } from '../../services/AssessmentService';
 
 export const NewAssessment = () => {
+  const { handleSubmit, register } = useForm();
   // create a form that utilizes the "onSubmit" function to send data to
   // packages/client/src/services/AssessmentService.js and then onto the packages/api/src/routes/assessment express API
   const onSubmit = async (data) => {
+    console.log(`Form Data:`, data);
     await AssessmentService.submit(data);
   };
 
-  return <Form onSubmit={(handleSubmit) => handleSubmit(onSubmit)}>
+  return <Form onSubmit={(handleSubmit(onSubmit))}>
 
-    <Form.Group controlId="CatName" classname="mb-3">
+    <Form.Group controlId="Instrument" className="mb-3">
       <h1>Cat Assessment Infos</h1>
-      <h2>Instrument</h2>
-      Cat Behavioral Instrument
+      <Form.Label>Instrument</Form.Label>
+      <Form.Control
+        type="hidden"
+        defaultValue={1}
+        {...register(`instrument`, { required: true, valueAsNumber: true })}
+
+      />
 
     </Form.Group>
 
-    <Form.Group controlId="CatName" classname="mb-3">
+    <Form.Group controlId="catName" className="mb-3">
       <h2> Cat Details </h2>
       <Form.Label>Cat Name</Form.Label>
       <Form.Control
         type="text"
         placeholder="Enter Pet Name"
-        value={Form.CatName}
+        {...register(`catName`, { required: true })}
       />
     </Form.Group>
 
-    <Form.Group controlId="CatBirthday" classname="mb-3">
+    <Form.Group controlId="CatDateOfBirth" className="mb-3">
       <Form.Label>Cat Birthday</Form.Label>
       <Form.Control
         type="date"
-        placeholder="Enter Pet Birthday"
-        value={Form.CatBirthday}
-        required
+        {...register(`catDateOfBirth`, { required: true })}
       />
     </Form.Group>
 
-    <Form.Group controlId="CatJudicialContact" classname="mb-3">
+    <Form.Group controlId="CatJudicialContact" className="mb-3">
       <h2>Questions</h2>
       <Form.Label>1. Previous contact with the Cat Judicial System</Form.Label>
       <div>
         <Form.Check
           type="radio"
           label="Yes"
-          name="CatJudicialContact"
-          id="CatJudicialContactYes"
+          {...register(`CatJudicialContact`)}
           value="1"
         />
         <Form.Check
           type="radio"
           label="No"
-          name="CatJudicialContact"
-          id="CatJudicialContactNo"
+          {...register(`CatJudicialContact`)}
           value="0"
         />
       </div>
     </Form.Group>
 
-    <Form.Group controlId="PhysicalAltercation" classname="mb-3">
+    <Form.Group controlId="PhysicalAltercation" className="mb-3">
       <Form.Label>2. Physical altercations with other cats</Form.Label>
       <div>
         <Form.Check
           type="radio"
           label="3+"
-          name="PhysicalAltercation"
-          id="PhysicalAltercationYes"
+          {...register(`PhysicalAltercation`)}
           value="1"
         />
         <Form.Check
           type="radio"
           label="0-3"
-          name="PhysicalAltercation"
-          id="PhysicalAltercationNo"
+          {...register(`PhysicalAltercation`)}
           value="0"
         />
       </div>
     </Form.Group>
 
-    <Form.Group controlId="OwnerAltercations" classname="mb-3">
+    <Form.Group controlId="OwnerAltercations" className="mb-3">
       <Form.Label>3. Physical altercations with owner (scratching, biting, etc..)</Form.Label>
       <div>
         <Form.Check
           type="radio"
           label="10+"
-          name="OwnerAltercations"
-          id="OwnerAltercationsYes"
+          {...register(`OwnerAltercations`)}
           value="1"
         />
         <Form.Check
           type="radio"
           label="0-10"
-          name="OwnerAltercations"
-          id="OwnerAltercationsYes"
+          {...register(`OwnerAltercations`)}
           value="0"
         />
       </div>
     </Form.Group>
 
-    <Form.Group controlId="DogPlay" classname="mb-3">
+    <Form.Group controlId="DogPlay" className="mb-3">
       <Form.Label>4. Plays well with dogs.</Form.Label>
       <div>
         <Form.Check
           type="radio"
           label="Yes"
-          name="DogPlay"
-          id="DogPlayYes"
+          {...register(`DogPlay`)}
           value="0"
         />
         <Form.Check
           type="radio"
           label="No"
-          name="DogPlay"
-          id="DogPlayNo"
+          {...register(`DogPlay`)}
           value="1"
         />
       </div>
     </Form.Group>
 
-    <Form.Group controlId="HissesStrangers" classname="mb-3">
+    <Form.Group controlId="HissesStrangers" className="mb-3">
       <Form.Label>5. Hisses at strangers.</Form.Label>
       <div>
         <Form.Check
           type="radio"
           label="Yes"
-          name="HissesStrangers"
-          id="HissesStrangersYes"
+          {...register(`HissesStrangers`)}
           value="1"
         />
         <Form.Check
           type="radio"
           label="No"
-          name="HissesStrangersNo"
-          id="HissesStrangersNo"
+          {...register(`HissesStrangers`)}
           value="0"
         />
       </div>
