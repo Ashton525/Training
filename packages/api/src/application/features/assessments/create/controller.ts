@@ -20,6 +20,8 @@ export class CreateAssessmentController extends BaseController {
       throw new Error(`Validation error: ${dto.error.message}`);
     }
 
+    console.log(`Creating assessment with data:`, dto.value);
+
     const assessment = await this.createAssessmentUseCase.execute(dto.value as CreateAssessmentDTO);
 
     return assessment;

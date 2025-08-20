@@ -7,12 +7,35 @@ export const NewAssessment = () => {
   const { handleSubmit, register } = useForm();
   // create a form that utilizes the "onSubmit" function to send data to
   // packages/client/src/services/AssessmentService.js and then onto the packages/api/src/routes/assessment express API
-  const onSubmit = async (data) => {
-    console.log(`Form Data:`, data);
-    await AssessmentService.submit(data);
+  const calculateScoreAndRisk = (data) => {
+    const yesNoFields = [ `CatJudicialContact`, `DogPlay`, `HissesStrangers`, `OwnerAltercations`, `PhysicalAltercation` ];
+    const score = yesNoFields.reduce((sum, field) => sum + parseInt(data[field] || `0`, 10), 0);
+    let riskLevel = `low`;
+    if (score >= 0 && score <= 1) {
+      riskLevel = `low`;
+    } else if (score >= 2 && score <= 3) {
+      riskLevel = `medium`;
+    } else if (score >= 4 && score <= 5) {
+      riskLevel = `high`;
+    }
+    return { riskLevel, score };
   };
 
-  return <Form onSubmit={(handleSubmit(onSubmit))}>
+  const onSubmit = async (data) => {
+    const { riskLevel, score } = calculateScoreAndRisk(data);
+    const { catDateOfBirth, catName, instrumentType } = data;
+    const finalData = {
+      catDateOfBirth,
+      catName,
+      instrumentType,
+      riskLevel,
+      score,
+    };
+    console.log(`Form Data:`, finalData);
+    await AssessmentService.submit(finalData);
+  };
+
+  return <Form onSubmit={handleSubmit(onSubmit, (err) => console.error(err))}>
 
     <Form.Group controlId="Instrument" className="mb-3">
       <h1>Cat Assessment Infos</h1>
@@ -20,8 +43,7 @@ export const NewAssessment = () => {
       <Form.Control
         type="hidden"
         defaultValue={1}
-        {...register(`instrument`, { required: true, valueAsNumber: true })}
-
+        {...register(`instrumentType`, { required: true }, { valueAsNumber: true })}
       />
 
     </Form.Group>
@@ -136,5 +158,6 @@ export const NewAssessment = () => {
     </Form.Group>
 
     <Button variant="primary" type="submit">Submit</Button>
+
   </Form>;
 };

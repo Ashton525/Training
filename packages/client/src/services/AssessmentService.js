@@ -1,4 +1,3 @@
-import axios from 'axios';
 import Axios from '../utils/http.config';
 
 export class AssessmentService {
@@ -7,6 +6,7 @@ export class AssessmentService {
       // TODO: Choose the correct method, url, and data to send
       // in a request to the express packages/api/src/routes/assessment.js
       // NOTE: the http.config file automatically adds /api to the front of your url
+      console.log(`Submitting assessment:`, assessment);
       return Axios.post(`/assessments`, assessment)
         .then((response) => response.data);
     } catch (err) {
