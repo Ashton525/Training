@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Button, Form } from 'react-bootstrap';
 import { AssessmentService } from '../../services/AssessmentService';
+import '../../style.css';
 
 export const NewAssessment = () => {
   const { handleSubmit, register } = useForm();
@@ -37,9 +38,10 @@ export const NewAssessment = () => {
 
   return <Form onSubmit={handleSubmit(onSubmit, (err) => console.error(err))}>
 
-    <Form.Group controlId="Instrument" className="mb-3">
-      <h1>Cat Assessment Infos</h1>
-      <Form.Label>Instrument</Form.Label>
+    <Form.Group controlId="Instrument" className="mb-4">
+      <div className="border border-dark rounded p-4">
+        <h1 className="underline-custom">Cat Assessment Info</h1>
+      </div>
       <Form.Control
         type="hidden"
         defaultValue={1}
@@ -49,8 +51,10 @@ export const NewAssessment = () => {
     </Form.Group>
 
     <Form.Group controlId="catName" className="mb-3">
-      <h2> Cat Details </h2>
-      <Form.Label>Cat Name</Form.Label>
+      <h2 className="p-0 mb-4"> Cat Details </h2>
+      <Form.Label>
+        <h3>Cat Name</h3>
+      </Form.Label>
       <Form.Control
         type="text"
         placeholder="Enter Pet Name"
@@ -59,7 +63,9 @@ export const NewAssessment = () => {
     </Form.Group>
 
     <Form.Group controlId="CatDateOfBirth" className="mb-3">
-      <Form.Label>Cat Birthday</Form.Label>
+      <Form.Label>
+        <h3>Cat Birthday</h3>
+      </Form.Label>
       <Form.Control
         type="date"
         {...register(`catDateOfBirth`, { required: true })}
@@ -157,7 +163,7 @@ export const NewAssessment = () => {
       </div>
     </Form.Group>
 
-    <Button variant="primary" type="submit">Submit</Button>
+    <Button className="btn btn-danger" type="submit">Submit</Button>
 
   </Form>;
 };

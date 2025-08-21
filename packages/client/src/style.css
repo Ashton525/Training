@@ -1,0 +1,5 @@
+.underline-custom {
+  text-decoration: underline;
+  text-decoration-color: #ff5733;
+  text-underline-offset: 4px; 
+}
