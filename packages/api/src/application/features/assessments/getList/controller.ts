@@ -12,7 +12,7 @@ export class GetAssessmentListController extends BaseController {
     super();
   }
 
-  protected async executeImpl(req: Request): Promise<Assessment[]> {
+  protected async executeImpl(req: Request): Promise<Assessment[]> { // takes request argument and returns array promise to assessment
     const assessments: Assessment[] = await this.getAssessmentListUseCase.execute();
     return assessments;
   }
