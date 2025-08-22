@@ -3,3 +3,7 @@
   text-decoration-color: #ff5733;
   text-underline-offset: 4px; 
 }
+.borderBox {
+  border: 1px solid black;
+  padding: 15px;
+}
